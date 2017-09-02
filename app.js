@@ -99,11 +99,11 @@ const bindEvents = function(placeForListItem, placeForCheckBox) {
 	checkBox.onchange = placeForCheckBox;
 }
 
-//cycle over incompleteTasksHolder ul list items
-for (let i = 0; i < incompleteTasksHolder.children.length; i++) {
-	bindEvents(incompleteTasksHolder.children[i], completedTasks);
-}
-//cycle over completedTasksHolder ul list items
-for (let i = 0; i < completedTasksHolder.children.length; i++) {
-	bindEvents(completedTasksHolder.children[i], incompleteTasks);
-}
+// //cycle over incompleteTasksHolder ul list items
+// for (let i = 0; i < incompleteTasksHolder.children.length; i++) {
+// 	bindEvents(incompleteTasksHolder.children[i], completedTasks);
+// }
+// //cycle over completedTasksHolder ul list items
+// for (let i = 0; i < completedTasksHolder.children.length; i++) {
+// 	bindEvents(completedTasksHolder.children[i], incompleteTasks);
+// }
