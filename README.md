@@ -1,2 +1,1 @@
-# jQuery.todomvc
-Playing with MV* frameworks - http://todomvc.com/
+Simple todo app.
