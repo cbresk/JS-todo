@@ -1,13 +1,14 @@
+'use strict'
 const inputTask = document.getElementById("new-task");
 const incompleteTasksHolder = document.getElementById("incomplete-tasks");
 const completedTasksHolder = document.getElementById("completed-tasks");
 
-// New Task List Item
+inputTask.focus();
+
 inputTask.addEventListener("keydown",(event) => {
 	
 	if (event.keyCode === 13 && inputTask.value !== "") {
 		
-		//Create List Item
 		const listItem = document.createElement("li");
 		const liCheckBox = document.createElement("input");
 		const liLabel = document.createElement("label");
@@ -17,7 +18,7 @@ inputTask.addEventListener("keydown",(event) => {
 		
 		liCheckBox.type = "checkbox";
 		liInputType.type = "text";
-		liInputType.className = "form-control";
+		liInputType.className = "form-control editInput";
 		
 		liLabel.innerHTML = inputTask.value;
 		
@@ -35,6 +36,7 @@ inputTask.addEventListener("keydown",(event) => {
 		incompleteTasksHolder.appendChild(listItem);
 		
 		inputTask.value = "";
+		inputTask.focus();
 		
 		bindEvents(listItem, completedTasks);
 		
@@ -42,68 +44,81 @@ inputTask.addEventListener("keydown",(event) => {
 	
 });
 
-//Edit an existing task
 const editTask = function() {
-	
+
 	const listItem = this.parentNode;
-	
 	const label = listItem.querySelector("label");
 	const inputText = listItem.querySelector("input[type=text]");
 	const containsClass = listItem.classList.contains("editMode");
-	//if the class of the parent is .editMode
+	
 	if (containsClass) {
-		//Switch from .editMode
-		//label text become the input's value
 		label.innerHTML = inputText.value;
 	} else {
-		//Switch to .editMode
-		//input value becomes the label's text
 		inputText.value = label.innerHTML;
 	}
-	//Toggle .editMode on the list item
+
 	listItem.classList.toggle("editMode");
+	inputText.focus();
 }
-//Delete an existing task
+
 const deleteTask = function() {
 	
 	const listItem = this.parentNode;
 	const ul = listItem.parentNode;
-	//Remove the parent list item from the ul
+	
 	ul.removeChild(listItem);
 }
-//Mark a task as incomplete
+
 const incompleteTasks = function() {
 	
 	const listItem = this.parentNode;
-	//Append the task list item to the #incomplete-tasks
+	
 	incompleteTasksHolder.appendChild(listItem);
 	bindEvents(listItem, completedTasks);
 }
-//Mark a task as complete
+
 const completedTasks = function() {
 	
 	const listItem = this.parentNode;
-	//Append the task list item to the #completed-tasks
+
 	completedTasksHolder.appendChild(listItem);
 	bindEvents(listItem, incompleteTasks);
 }
 
 const bindEvents = function(placeForListItem, placeForCheckBox) {
-	//select taskListItem's children
+	
 	const checkBox = placeForListItem.querySelector("input[type=checkbox]");
 	const editButton = placeForListItem.querySelector("button.edit");
 	const deleteButton = placeForListItem.querySelector("button.delete");
+	const inputText = document.getElementsByClassName("editInput");
 	
 	editButton.onclick = editTask;
 	deleteButton.onclick = deleteTask;
 	checkBox.onchange = placeForCheckBox;
 }
 
-// //cycle over incompleteTasksHolder ul list items
-// for (let i = 0; i < incompleteTasksHolder.children.length; i++) {
-// 	bindEvents(incompleteTasksHolder.children[i], completedTasks);
-// }
-// //cycle over completedTasksHolder ul list items
-// for (let i = 0; i < completedTasksHolder.children.length; i++) {
-// 	bindEvents(completedTasksHolder.children[i], incompleteTasks);
-// }
+for (let i = 0; i < incompleteTasksHolder.children.length; i++) {
+	bindEvents(incompleteTasksHolder.children[i], completedTasks);
+}
+for (let i = 0; i < completedTasksHolder.children.length; i++) {
+	bindEvents(completedTasksHolder.children[i], incompleteTasks);
+}
+
+newColor.addEventListener('click', function(event) {
+
+	const newColor = document.getElementById('newColor');
+	const container = document.getElementsByClassName('container');
+
+	if (event.target.tagName === 'LI') {
+
+		let $color = $(event.target).css("background-color");
+
+		$(event.target).siblings().removeClass("selected");
+		event.target.classList.add("selected");
+		$('footer, #head').css("color", $color);
+		$('.container').css("border-color", $color);
+		inputTask.focus();
+		$(document.activeElement).css("border-color", $color);
+	}
+
+});
