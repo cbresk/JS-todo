@@ -1,13 +1,14 @@
 .container {
   display: block;
   width: 600px;
-  margin: 50px auto;
+  margin: 25px auto;
   border: 1px solid #b3b3ff;
   border-radius: 10px;
-  box-shadow: 5px 5px 15px 3px #cbcbb4;
+  box-shadow: 5px 5px 15px 0 #cbcbb4;
 }
 
-h2{
+h2,
+footer {
 	color: #b3b3ff;
 }
 
@@ -110,4 +111,31 @@ ul li.editMode input[type=text] {
 
 ul li.editMode label {
   display:none;
+}
+
+#newColor ul li {
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+	cursor: pointer;
+	box-shadow: 1px 1px 15px 0 #222;
+	display: inline-block;
+	margin: 30px 5px;
+	padding: 0;
+}
+
+.selected {
+	border: 1px dotted rgba(0, 0, 0, 1);
+}
+
+.firstColor {
+	background-color: #b3b3ff;
+}
+
+.secondColor {
+	background-color: #ffb3b3;
+}
+
+.thirdColor {
+	background-color: #94b8b8;
 }
