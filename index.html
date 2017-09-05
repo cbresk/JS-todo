@@ -4,30 +4,48 @@
 	<head>
 	
 		<meta charset="utf-8">
-		<title>Todo App</title>
+		<title>Simple Todo List</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 		<link rel="stylesheet" href="css/style.css" type="text/css">
 	
 	</head>
   
 	<body>
-	
-		<div class="container text-muted">
+		<!-- COLOR CHOOSE -->
+		<div id="newColor" class="text-center mt-3">
+			<ul>
+				<li class="firstColor selected"></li>
+				<li class="secondColor"></li>
+				<li class="thirdColor"></li>
+			</ul>
+		</div>
 		
-			<h2 class="display-3 text-center mb-5">todos</h2>
-			<p>
-				<input class="form-control" id="new-task" type="text" placeholder="What needs to be done?">
-			</p>
+		<div class="container text-muted">
 			
-			<h3 class="text-center">let's do this!</h3>
-			<ul id="incomplete-tasks" class="list-unstyled"></ul>
+			<h2 id="head" class="display-3 text-center mb-5">todos</h2>
+			<input class="form-control" id="new-task" type="text" placeholder="What needs to be done?">
 			
-			<h3 class="text-center">Well Done!</h3>
-			<ul id="completed-tasks" class="list-unstyled"></ul>
-			
+			<div id="tasks-body">
+				<!-- INCOMPLETE TASKS -->
+				<h3 class="text-center">let's do this!</h3>
+				<ul id="incomplete-tasks"></ul>
+				<!-- COMPLETED TASKS -->
+				<h3 class="text-center">Well Done!</h3>
+				<ul id="completed-tasks"></ul>
+			</div>
+
 		</div>
 
+		<footer class="text-center">
+			<p>&copy 2017</p>
+		</footer>
+		
 		<script type="text/javascript" src="js/app.js"></script>
+		<script 
+			src="https://code.jquery.com/jquery-3.2.1.min.js"
+	  		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	  		crossorigin="anonymous">			
+  		</script>
 
 	</body>
   
