@@ -1,4 +1,3 @@
-'use strict'
 const inputTask = document.getElementById("new-task");
 const incompleteTasksHolder = document.getElementById("incomplete-tasks");
 const completedTasksHolder = document.getElementById("completed-tasks");
@@ -16,6 +15,7 @@ inputTask.addEventListener("keydown",(event) => {
 		const delBtn = document.createElement("button");
 		const editBtn = document.createElement("button");
 		
+		listItem.className = 'todoItem';
 		liCheckBox.type = "checkbox";
 		liInputType.type = "text";
 		liInputType.className = "form-control editInput";
@@ -23,22 +23,26 @@ inputTask.addEventListener("keydown",(event) => {
 		liLabel.innerHTML = inputTask.value;
 		
 		delBtn.className = "delete";
-		delBtn.textContent = "Delete";
+		delBtn.textContent = "X";
 		editBtn.className = "edit";
-		editBtn.textContent = "Edit";
+		editBtn.textContent = 'Edit';
 		
 		listItem.appendChild(liCheckBox);
 		listItem.appendChild(liLabel);
 		listItem.appendChild(liInputType);
 		listItem.appendChild(delBtn);
 		listItem.appendChild(editBtn);
-		
+
 		incompleteTasksHolder.appendChild(listItem);
-		
+  
 		inputTask.value = "";
 		inputTask.focus();
 		
 		bindEvents(listItem, completedTasks);
+
+		$('#tasks-body').slideDown("slow", function() {
+			$(this).toggle( $('#tasks-body ul li').length > 0 );
+		});
 		
 	}
 	
@@ -67,6 +71,9 @@ const deleteTask = function() {
 	const ul = listItem.parentNode;
 	
 	ul.removeChild(listItem);
+	$('#tasks-body').slideUp("slow", function() {
+		$(this).toggle( $('#tasks-body ul li').length > 0 );
+	});
 }
 
 const incompleteTasks = function() {
@@ -90,7 +97,6 @@ const bindEvents = function(placeForListItem, placeForCheckBox) {
 	const checkBox = placeForListItem.querySelector("input[type=checkbox]");
 	const editButton = placeForListItem.querySelector("button.edit");
 	const deleteButton = placeForListItem.querySelector("button.delete");
-	const inputText = document.getElementsByClassName("editInput");
 	
 	editButton.onclick = editTask;
 	deleteButton.onclick = deleteTask;
@@ -118,7 +124,9 @@ newColor.addEventListener('click', function(event) {
 		$('footer, #head').css("color", $color);
 		$('.container').css("border-color", $color);
 		inputTask.focus();
-		$(document.activeElement).css("border-color", $color);
+		$('*:focus').css("border-color", $color);
+		$('#editInput:focus').css("border-color", $color);
+		
 	}
 
 });
