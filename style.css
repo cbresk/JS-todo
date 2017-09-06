@@ -1,15 +1,30 @@
+body {
+  background-color: #ebebe0;
+  font-family: 'Open Sans', sans-serif;
+}
+
 .container {
   display: block;
   width: 600px;
-  margin: 25px auto;
+  margin: 13px auto;
   border: 1px solid #b3b3ff;
-  border-radius: 10px;
-  box-shadow: 5px 5px 15px 0 #cbcbb4;
+  border-radius: 10px 10px 5px 5px;
+  box-shadow: 0 12px 25px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  background-color: white;
+  animation: grow 1.5s;
 }
 
 h2,
 footer {
-	color: #b3b3ff;
+  color: #b3b3ff;
+}
+
+#completed-tasks {
+  margin-bottom: 25px;
+}
+
+#head {
+  margin-top: 15px;
 }
 
 ul {
@@ -37,13 +52,14 @@ button {
   font-size: 15px;
   width: 60px;
   margin: 10px 0 0;
-  font-family: Lato, sans-serif;
   cursor: pointer;
   float: right;
+  transition: transform 0.2s;
 }
 
 button:hover {
-  color: #b3b3ff;
+  color: #2f2f1e;
+  transform: scale(1.15);
 }
 
 h3,
@@ -57,6 +73,10 @@ label[for='new-task'] {
 
 input[type="text"]:focus {
   color: #333;
+}
+
+input[type="text"] {
+  margin-bottom: 25px;
 }
 
 .form-control:focus {
@@ -78,6 +98,7 @@ li > input[type="checkbox"] {
   margin: 0 10px;
   position: relative;
   top: 15px;
+  border-radius: 50%;
 }
 
 li > label {
@@ -87,7 +108,7 @@ li > label {
   padding: 0 0 0 11px;
 }
 
-li >  input[type="text"] {
+li > input[type="text"] {
   width: 250px;
 }
 
@@ -100,7 +121,6 @@ li > .delete:hover {
   color: #888;
 }
 
-/* Edit Task */
 ul li input[type=text] {
   display:none;
 }
@@ -114,28 +134,77 @@ ul li.editMode label {
 }
 
 #newColor ul li {
-	height: 30px;
-	width: 30px;
-	border-radius: 50%;
-	cursor: pointer;
-	box-shadow: 1px 1px 15px 0 #222;
-	display: inline-block;
-	margin: 30px 5px;
-	padding: 0;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 8px 25px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  display: inline-block;
+  margin: 30px 5px;
+  padding: 0;
+  transition: transform 0.4s;
+  animation: grow 1.5s 1.5s ease-out backwards;
 }
 
 .selected {
-	border: 1px dotted rgba(0, 0, 0, 1);
+  border: 1px dotted rgb(255, 255, 255);
 }
 
 .firstColor {
-	background-color: #b3b3ff;
+  background-color: #b3b3ff;
+}
+
+.firstColor:hover {
+  transform: scale(1.1);
 }
 
 .secondColor {
-	background-color: #ffb3b3;
+  background-color: #ffb3b3;
+}
+
+.secondColor:hover {
+  transform: scale(1.1);
 }
 
 .thirdColor {
-	background-color: #94b8b8;
+  background-color: #94b8b8;
+}
+
+.thirdColor:hover {
+  transform: scale(1.1);
+}
+
+.todoItem {
+  transition: transform 0.3s;
+}
+
+.todoItem:hover {
+  transform: scale(1.04);
+  box-shadow: 0 12px 25px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+#tasks-body {
+  display: none;
+}
+
+input::input-placeholder {
+  font-style: italic;
+  font-weight: 300;
+  color: #e6e6e6;
+}
+
+@keyframes grow {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+input[type="checkbox"]:checked {
+  
 }
