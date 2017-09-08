@@ -4,10 +4,9 @@ const completedTasksHolder = document.getElementById("completed-tasks");
 
 inputTask.focus();
 
-inputTask.addEventListener("keydown",(event) => {
-	
+inputTask.addEventListener("keydown", (event) => {
 	if (event.keyCode === 13 && inputTask.value !== "") {
-		
+    
 		const listItem = document.createElement("li");
 		const liCheckBox = document.createElement("input");
 		const liLabel = document.createElement("label");
@@ -18,7 +17,7 @@ inputTask.addEventListener("keydown",(event) => {
 		listItem.className = 'todoItem';
 		liCheckBox.type = "checkbox";
 		liInputType.type = "text";
-		liInputType.className = "form-control editInput";
+		liInputType.className = "form-control";
 		
 		liLabel.innerHTML = inputTask.value;
 		
@@ -39,17 +38,16 @@ inputTask.addEventListener("keydown",(event) => {
 		inputTask.focus();
 		
 		bindEvents(listItem, completedTasks);
-
-		$('#tasks-body').slideDown("slow", function() {
-			$(this).toggle( $('#tasks-body ul li').length > 0 );
-		});
-		
+    //todoHandleabars();
+    todoCounter();
+    
+    if ($('#tasks-body ul li').length > 0) {
+      $('#tasks-body').slideDown();
+    }
 	}
-	
 });
 
 const editTask = function() {
-
 	const listItem = this.parentNode;
 	const label = listItem.querySelector("label");
 	const inputText = listItem.querySelector("input[type=text]");
@@ -66,34 +64,34 @@ const editTask = function() {
 }
 
 const deleteTask = function() {
-	
 	const listItem = this.parentNode;
 	const ul = listItem.parentNode;
 	
 	ul.removeChild(listItem);
-	$('#tasks-body').slideUp("slow", function() {
-		$(this).toggle( $('#tasks-body ul li').length > 0 );
-	});
+  
+  if ($('#tasks-body ul li').length == 0) {
+      $('#tasks-body').slideUp();
+  }
+  todoCounter();
 }
 
 const incompleteTasks = function() {
-	
 	const listItem = this.parentNode;
 	
 	incompleteTasksHolder.appendChild(listItem);
 	bindEvents(listItem, completedTasks);
+  todoCounter();
 }
 
 const completedTasks = function() {
-	
 	const listItem = this.parentNode;
 
 	completedTasksHolder.appendChild(listItem);
 	bindEvents(listItem, incompleteTasks);
+  todoCounter();
 }
 
 const bindEvents = function(placeForListItem, placeForCheckBox) {
-	
 	const checkBox = placeForListItem.querySelector("input[type=checkbox]");
 	const editButton = placeForListItem.querySelector("button.edit");
 	const deleteButton = placeForListItem.querySelector("button.delete");
@@ -103,30 +101,50 @@ const bindEvents = function(placeForListItem, placeForCheckBox) {
 	checkBox.onchange = placeForCheckBox;
 }
 
-for (let i = 0; i < incompleteTasksHolder.children.length; i++) {
-	bindEvents(incompleteTasksHolder.children[i], completedTasks);
-}
-for (let i = 0; i < completedTasksHolder.children.length; i++) {
-	bindEvents(completedTasksHolder.children[i], incompleteTasks);
-}
+// for (let i = 0; i < incompleteTasksHolder.children.length; i++) {
+// 	bindEvents(incompleteTasksHolder.children[i], completedTasks);
+// }
+// for (let i = 0; i < completedTasksHolder.children.length; i++) {
+// 	bindEvents(completedTasksHolder.children[i], incompleteTasks);
+// }
 
 newColor.addEventListener('click', function(event) {
-
-	const newColor = document.getElementById('newColor');
-	const container = document.getElementsByClassName('container');
-
 	if (event.target.tagName === 'LI') {
-
-		let $color = $(event.target).css("background-color");
+		let color = $(event.target).css("background-color");
 
 		$(event.target).siblings().removeClass("selected");
 		event.target.classList.add("selected");
-		$('footer, #head').css("color", $color);
-		$('.container').css("border-color", $color);
+		$('footer, #head').css("color", color);
+		$('.container').css("border-color", color);
 		inputTask.focus();
-		$('*:focus').css("border-color", $color);
-		$('#editInput:focus').css("border-color", $color);
-		
+		$('.form-control:focus').css("border-color", color);
 	}
-
 });
+
+const todoWordPlurazile = (count, word) => {
+  return count === 1 ? word : word + 's';
+}
+
+var todoCounter = () => {
+  const footerSource = document.getElementById("footer-template").innerHTML;
+  const footerTemplate = Handlebars.compile(footerSource);
+  
+  let activeTodos = $('#incomplete-tasks').children().length;
+  let footerContext = {
+    activeTodoCount: activeTodos,
+    activeTodoWord: todoWordPlurazile(activeTodos , 'item')
+  };
+  let html = footerTemplate(footerContext);
+  return $("#activeTodo").html(html);
+}
+
+// var todoHandleabars = () => {
+//   const source = document.getElementById("todo-template").innerHTML;
+//   const todoTemplate = Handlebars.compile(source);
+  
+//   let todoContext = {
+//     label: inputTask.value
+//   };
+//   let html = todoTemplate(todoContext);
+//   return $("#incomplete-tasks").append(html);
+// }
