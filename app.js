@@ -6,7 +6,6 @@ inputTask.focus();
 
 inputTask.addEventListener("keydown", (event) => {
 	if (event.keyCode === 13 && inputTask.value !== "") {
-    
 		const listItem = document.createElement("li");
 		const liCheckBox = document.createElement("input");
 		const liLabel = document.createElement("label");
@@ -38,12 +37,12 @@ inputTask.addEventListener("keydown", (event) => {
 		inputTask.focus();
 		
 		bindEvents(listItem, completedTasks);
-    //todoHandleabars();
-    todoCounter();
+    		//todoHandleabars();
+   		 todoCounter();
     
-    if ($('#tasks-body ul li').length > 0) {
-      $('#tasks-body').slideDown();
-    }
+	    	if ($('#tasks-body ul li').length > 0) {
+	     	 	$('#tasks-body').slideDown();
+	    	}
 	}
 });
 
@@ -58,7 +57,6 @@ const editTask = function() {
 	} else {
 		inputText.value = label.innerHTML;
 	}
-
 	listItem.classList.toggle("editMode");
 	inputText.focus();
 }
@@ -69,10 +67,10 @@ const deleteTask = function() {
 	
 	ul.removeChild(listItem);
   
-  if ($('#tasks-body ul li').length == 0) {
-      $('#tasks-body').slideUp();
-  }
-  todoCounter();
+  	if ($('#tasks-body ul li').length == 0) {
+      		$('#tasks-body').slideUp();
+ 	}
+  	todoCounter();
 }
 
 const incompleteTasks = function() {
@@ -80,7 +78,7 @@ const incompleteTasks = function() {
 	
 	incompleteTasksHolder.appendChild(listItem);
 	bindEvents(listItem, completedTasks);
-  todoCounter();
+  	todoCounter();
 }
 
 const completedTasks = function() {
@@ -88,7 +86,7 @@ const completedTasks = function() {
 
 	completedTasksHolder.appendChild(listItem);
 	bindEvents(listItem, incompleteTasks);
-  todoCounter();
+  	todoCounter();
 }
 
 const bindEvents = function(placeForListItem, placeForCheckBox) {
@@ -126,16 +124,16 @@ const todoWordPlurazile = (count, word) => {
 }
 
 var todoCounter = () => {
-  const footerSource = document.getElementById("footer-template").innerHTML;
-  const footerTemplate = Handlebars.compile(footerSource);
-  
-  let activeTodos = $('#incomplete-tasks').children().length;
-  let footerContext = {
-    activeTodoCount: activeTodos,
-    activeTodoWord: todoWordPlurazile(activeTodos , 'item')
-  };
-  let html = footerTemplate(footerContext);
-  return $("#activeTodo").html(html);
+	  const footerSource = document.getElementById("footer-template").innerHTML;
+	  const footerTemplate = Handlebars.compile(footerSource);
+
+	  let activeTodos = $('#incomplete-tasks').children().length;
+	  let footerContext = {
+	    activeTodoCount: activeTodos,
+	    activeTodoWord: todoWordPlurazile(activeTodos , 'item')
+	  };
+	  let html = footerTemplate(footerContext);
+	  return $("#activeTodo").html(html);
 }
 
 // var todoHandleabars = () => {
